@@ -1,7 +1,10 @@
 package com.luismorales17106494.a12_lanzarunsegundoactivityypasarparmetros
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.luismorales17106494.a12_lanzarunsegundoactivityypasarparmetros.databinding.ActivityMainBinding
 
 /*
 12 - Lanzar un segundo "Activity" y pasar parámetros
@@ -23,8 +26,31 @@ permite mostrar el contenido de un sitio web.
  */
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
+
+        binding.ibtnBuscar.setOnClickListener(){
+            if (binding.edDireccion.text.isNotBlank()){
+                val myIntent = Intent(
+                    this,
+                    ResultActivity::class.java
+                )
+                myIntent.putExtra("direccion",binding.edDireccion.text.toString())
+                startActivity(myIntent)
+
+            }else{
+                Toast.makeText(this, "Dirección no valida",
+                Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
+
     }
 }
